@@ -1,4 +1,4 @@
-# great circles
+# grand arcs
 # apapted from flowingdata.com / paul butler by brian abelson @ EcoHack 2012
 setwd("~/Dropbox/GitRepository/EcoHack/")
 #install libraries
