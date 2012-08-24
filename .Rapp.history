@@ -1,112 +1,9 @@
-)
-options2 <- paste(
-'-size',
-paste(width,width,sep='x'),
-'gradient:',
-'-rotate 90',
-"distort Polar '",
-paste(width/2,0,.5,.5,sep=','),
-"' +repage",
-'-flop'
-)
-options3 <- paste(
-'-background white',
-'-channel B',
-'-combine'
-)
-options4 <- paste(
-'-compose blur',
-'-define compose:args=5x0+0+360',
-'-composite'
-)
-options5 <- paste(
-'-blur 0x4',
-'-radial-blur 3'
-)
-system(paste('convert','.histogram0.png',options0,'.histogram1.png'))
-system(paste('convert','.histogram1.png',options1,'.histogram2.png'))
-system(paste('convert',options2, '.polar.png'))
-system(paste('convert','.polar.png',options3,'.blur.png'))
-system(paste('convert','.histogram2.png', '.blur.png', options4, '.histogram3.png'))
-system(paste('convert','.histogram3.png', options4, filename))
-system('rm .histogram[0-3].png .polar.png .blur.png')
-}
-hipstogram(rnorm(42), filename='hipstogram.png')
-Sys.getenv("PATH")
-Sys.setenv(PATH=paste("opt/lobal/bin", Sys.getenv("PATH", sep=":")))
-Sys.setenv(PATH=paste("opt/lobal/bin", Sys.getenv("PATH"), sep=":")))
-Sys.setenv(PATH=paste("opt/lobal/bin", Sys.getenv("PATH"), sep=":"))
-hipstogram(rnorm(42), filename='hipstogram.png')
-Sys.setenv(PATH=paste("opt/local/bin", Sys.getenv("PATH"), sep=":"))
-hipstogram(rnorm(42), filename='hipstogram.png')
-perspective_option <- paste(
-paste(0, ',', 0, ' ', round(width*Q*r()), ',', round(height*Q*r()), sep=''),
-paste(width, ',', 0, ' ', round(width*P*r()), ',', round(height*Q*r()), sep=''),
-paste(0, ',', height, ' ', round(width*Q*r()), ',', round(height*P*r()), sep=''),
-paste(width, ',', height, ' ', round(width*P*r()), ',', round(height*P*r()), sep='')
-)
-png(filename='.histogram0.png', width=width, height=height)
-hist(x, col=2, ...)
-dev.off()
-P <- 1
-Q <- 0
-r <- function() rnorm(1, mean = 1, sd = 1/12)
-perspective_option <- paste(
-paste(0, ',', 0, ' ', round(width*Q*r()), ',', round(height*Q*r()), sep=''),
-paste(width, ',', 0, ' ', round(width*P*r()), ',', round(height*Q*r()), sep=''),
-paste(0, ',', height, ' ', round(width*Q*r()), ',', round(height*P*r()), sep=''),
-paste(width, ',', height, ' ', round(width*P*r()), ',', round(height*P*r()), sep='')
-)
-width=1024
-height=800
-P <- 1
-Q <- 0
-r <- function() rnorm(1, mean = 1, sd = 1/12)
-perspective_option <- paste(
-paste(0, ',', 0, ' ', round(width*Q*r()), ',', round(height*Q*r()), sep=''),
-paste(width, ',', 0, ' ', round(width*P*r()), ',', round(height*Q*r()), sep=''),
-paste(0, ',', height, ' ', round(width*Q*r()), ',', round(height*P*r()), sep=''),
-paste(width, ',', height, ' ', round(width*P*r()), ',', round(height*P*r()), sep='')
-)
-perspective_option
-options0 <- paste(#
-    "-distort Perspective '", perspective_option, "'"
-)
-options0
-Sys.setenv(NOAWT=TRUE)
-require("tm")
-require("stringr")
-require("Snowball")
-require("lda")
-great circles
-apapted from flowingdata.com / paul butler by brian abelson @ EcoHack 2012
-setwd("~/Dropbox/GitRepository/EcoHack/")
-install libraries
-require("maps")
-require("geosphere")
-require("RColorBrewer")
-the code is written for each coordinate to be stored in a separate column (EG from_x, from_y, to_x, to_y)
-However, it can also be adpated to deal with columns that contain coordinate pairs (EG from_x.y, to_x.y)
-If the latter is preferred, just get rid of the c() functions inside gcIntermedaite []EG gcIntermediate(from_x.y, to_x.y)]
-data <- read.csv("unqiue_connections_export.csv")
-data <- data[,-c(9,10,11)]
-remove NAs which don't plot correctly
-data <-na.omit(data)
-order data by quantity so smaller transaction counts plot first
-data <- data[order(data$quantity),]
-set bins for transaction count categories. I just created them manually from looking at the quantity quartiles
-one could also use pretty() to make the breaks.
-data$bin[data$quantity ==1] <- 1
-data$bin[data$quantity > 1 & data$quantity <= 10] <- 2
-data$bin[data$quantity > 10 & data$quantity <= 62] <- 3
-data$bin[data$quantity > 62] <- 4
-set colors from color brewer
 colors <- brewer.pal(4, "YlGnBu")
 add transparency by pasting a number onto the end of the hex code
-colors <- adjustcolor(colors, 0.2)
+colors <- adjustcolor(colors, 0.25)
 plot base map
 png("map.png",width=16000, height=9000, units="px")
-map("world", col="grey10", fill=TRUE, bg="black", lwd=0.1, lty=1)
+map("world", col="grey10", fill=TRUE, bg="black", lwd=0.22, lty=1)
 plot connecting lines
 n <- nrow(data)
 for (j in 1:n) {
@@ -135,7 +32,7 @@ lines(jitter(inter, 1), col=colors[colindex], lwd=1,   lty=1)
 }
 }
 dev.off()
-great circles
+grand arcs
 apapted from flowingdata.com / paul butler by brian abelson @ EcoHack 2012
 setwd("~/Dropbox/GitRepository/EcoHack/")
 install libraries
@@ -160,9 +57,123 @@ data$bin[data$quantity > 62] <- 4
 set colors from color brewer
 colors <- brewer.pal(4, "YlGnBu")
 add transparency by pasting a number onto the end of the hex code
-colors <- adjustcolor(colors, 0.1)
+colors <- adjustcolor(colors, 0.25)
 plot base map
-png("map.png",width=16000, height=9000, units="px")
+png("/Users/brian/Dropbox/public/map.png",width=1600, height=900, units="px")
+map("world", col="grey10", fill=TRUE, bg="black", lwd=0.22, lty=1)
+plot connecting lines
+n <- nrow(data)
+for (j in 1:n) {
+break data into an individual coord pair
+coord.pair <- data[j,]
+create great circle from coord pair
+breakAtDateLine=TRUE breaks lines into two pieces and stores them in a list of length two
+inter <- gcIntermediate(c(coord.pair$from_x, coord.pair$from_y),
+c(coord.pair$to_x, coord.pair$to_y),
+addStartEnd=FALSE,
+breakAtDateLine=TRUE)
+find coord pairs which cross the dateline and split into two lines
+if(length(inter)==2){
+assign color from the bin number
+colindex <- coord.pair$bin
+plot lines
+lines(jitter(inter[[1]], 1), col= colors[colindex], lwd=1, lty=1) # add jitter to increase visibility of clusters
+lines(jitter(inter[[2]], 1), col= colors[colindex], lwd=1,  lty=1) # add jitter to increase visibility of clusters
+}
+plot coord pairs that don't cross the dateline
+else{
+assign color from the bin number
+colindex <- coord.pair$bin
+plot line
+lines(jitter(inter, 1), col=colors[colindex], lwd=1,   lty=1)
+}
+}
+dev.off()
+grand arcs
+apapted from flowingdata.com / paul butler by brian abelson @ EcoHack 2012
+setwd("~/Dropbox/GitRepository/EcoHack/")
+install libraries
+require("maps")
+require("geosphere")
+require("RColorBrewer")
+the code is written for each coordinate to be stored in a separate column (EG from_x, from_y, to_x, to_y)
+However, it can also be adpated to deal with columns that contain coordinate pairs (EG from_x.y, to_x.y)
+If the latter is preferred, just get rid of the c() functions inside gcIntermedaite []EG gcIntermediate(from_x.y, to_x.y)]
+data <- read.csv("unqiue_connections_export.csv")
+data <- data[,-c(9,10,11)]
+remove NAs which don't plot correctly
+data <-na.omit(data)
+order data by quantity so smaller transaction counts plot first
+data <- data[order(data$quantity),]
+set bins for transaction count categories. I just created them manually from looking at the quantity quartiles
+one could also use pretty() to make the breaks.
+data$bin[data$quantity ==1] <- 1
+data$bin[data$quantity > 1 & data$quantity <= 10] <- 2
+data$bin[data$quantity > 10 & data$quantity <= 62] <- 3
+data$bin[data$quantity > 62] <- 4
+set colors from color brewer
+colors <- brewer.pal(4, "YlGnBu")
+add transparency by pasting a number onto the end of the hex code
+colors <- adjustcolor(colors, 0.25)
+plot base map
+png("/Users/brian/Dropbox/GitRepository/EcoHack/images/map.png",width=1600, height=900, units="px")
+map("world", col="grey10", fill=TRUE, bg="black", lwd=0.22, lty=1)
+plot connecting lines
+n <- nrow(data)
+for (j in 1:n) {
+break data into an individual coord pair
+coord.pair <- data[j,]
+create great circle from coord pair
+breakAtDateLine=TRUE breaks lines into two pieces and stores them in a list of length two
+inter <- gcIntermediate(c(coord.pair$from_x, coord.pair$from_y),
+c(coord.pair$to_x, coord.pair$to_y),
+addStartEnd=FALSE,
+breakAtDateLine=TRUE)
+find coord pairs which cross the dateline and split into two lines
+if(length(inter)==2){
+assign color from the bin number
+colindex <- coord.pair$bin
+plot lines
+lines(jitter(inter[[1]], 1), col= colors[colindex], lwd=1, lty=1) # add jitter to increase visibility of clusters
+lines(jitter(inter[[2]], 1), col= colors[colindex], lwd=1,  lty=1) # add jitter to increase visibility of clusters
+}
+plot coord pairs that don't cross the dateline
+else{
+assign color from the bin number
+colindex <- coord.pair$bin
+plot line
+lines(jitter(inter, 1), col=colors[colindex], lwd=1,   lty=1)
+}
+}
+dev.off()
+grand arcs
+apapted from flowingdata.com / paul butler by brian abelson @ EcoHack 2012
+setwd("~/Dropbox/GitRepository/EcoHack/")
+install libraries
+require("maps")
+require("geosphere")
+require("RColorBrewer")
+the code is written for each coordinate to be stored in a separate column (EG from_x, from_y, to_x, to_y)
+However, it can also be adpated to deal with columns that contain coordinate pairs (EG from_x.y, to_x.y)
+If the latter is preferred, just get rid of the c() functions inside gcIntermedaite []EG gcIntermediate(from_x.y, to_x.y)]
+data <- read.csv("unqiue_connections_export.csv")
+data <- data[,-c(9,10,11)]
+remove NAs which don't plot correctly
+data <-na.omit(data)
+order data by quantity so smaller transaction counts plot first
+data <- data[order(data$quantity),]
+set bins for transaction count categories. I just created them manually from looking at the quantity quartiles
+one could also use pretty() to make the breaks.
+data$bin[data$quantity ==1] <- 1
+data$bin[data$quantity > 1 & data$quantity <= 10] <- 2
+data$bin[data$quantity > 10 & data$quantity <= 62] <- 3
+data$bin[data$quantity > 62] <- 4
+set colors from color brewer
+colors <- brewer.pal(4, "YlGnBu")
+add transparency by pasting a number onto the end of the hex code
+colors <- adjustcolor(colors, 0.05)
+plot base map
+png("/Users/brian/Dropbox/GitRepository/EcoHack/images/map.png",width=1600, height=900, units="px")
 map("world", col="grey10", fill=TRUE, bg="black", lwd=0.05, lty=1)
 plot connecting lines
 n <- nrow(data)
@@ -192,60 +203,48 @@ lines(jitter(inter, 1), col=colors[colindex], lwd=1,   lty=1)
 }
 }
 dev.off()
-great circles
-apapted from flowingdata.com / paul butler by brian abelson @ EcoHack 2012
-setwd("~/Dropbox/GitRepository/EcoHack/")
-install libraries
-require("maps")
-require("geosphere")
-require("RColorBrewer")
-the code is written for each coordinate to be stored in a separate column (EG from_x, from_y, to_x, to_y)
-However, it can also be adpated to deal with columns that contain coordinate pairs (EG from_x.y, to_x.y)
-If the latter is preferred, just get rid of the c() functions inside gcIntermedaite []EG gcIntermediate(from_x.y, to_x.y)]
-data <- read.csv("unqiue_connections_export.csv")
-data <- data[,-c(9,10,11)]
-remove NAs which don't plot correctly
-data <-na.omit(data)
-order data by quantity so smaller transaction counts plot first
-data <- data[order(data$quantity),]
-set bins for transaction count categories. I just created them manually from looking at the quantity quartiles
-one could also use pretty() to make the breaks.
-data$bin[data$quantity ==1] <- 1
-data$bin[data$quantity > 1 & data$quantity <= 10] <- 2
-data$bin[data$quantity > 10 & data$quantity <= 62] <- 3
-data$bin[data$quantity > 62] <- 4
-set colors from color brewer
-colors <- brewer.pal(4, "YlGnBu")
-add transparency by pasting a number onto the end of the hex code
-colors <- adjustcolor(colors, 0.1)
-plot base map
-png("map.png",width=16000, height=9000, units="px")
-map("world", col="grey10", fill=TRUE, bg="black", lwd=0.05, lty=1)
-plot connecting lines
-n <- nrow(data)
-for (j in 1:n) {
-break data into an individual coord pair
-coord.pair <- data[j,]
-create great circle from coord pair
-breakAtDateLine=TRUE breaks lines into two pieces and stores them in a list of length two
-inter <- gcIntermediate(c(coord.pair$from_x, coord.pair$from_y),
-c(coord.pair$to_x, coord.pair$to_y),
-addStartEnd=FALSE,
-breakAtDateLine=TRUE)
-find coord pairs which cross the dateline and split into two lines
-if(length(inter)==2){
-assign color from the bin number
-colindex <- coord.pair$bin
-plot lines
-lines(jitter(inter[[1]], 1), col= colors[colindex], lwd=1, lty=1) # add jitter to increase visibility of clusters
-lines(jitter(inter[[2]], 1), col= colors[colindex], lwd=1,  lty=1) # add jitter to increase visibility of clusters
-}
-plot coord pairs that don't cross the dateline
-else{
-assign color from the bin number
-colindex <- coord.pair$bin
-plot line
-lines(jitter(inter, 1), col=colors[colindex], lwd=1,   lty=1)
-}
-}
-dev.off()
+wrm(list=ls())
+library("stringr")
+read in raw data from google refine
+d <- read.csv("~/Dropbox/Celeb_Hookups/celebs-csv(1).csv", stringsAsFactors=F)
+names(d) <- c("rank", "name", "spouse", "breakup", "dated", "canoodled", "score", "profession", "age")
+all.ppl <- unique(c(d$name, d$spouse, d$dated, d$canoodled))
+top.n <- 1400
+all.ppl
+all.ppl <- gsub(" ", "", unique(c(d$name, d$spouse, d$dated, d$canoodled)))
+all.ppl <- gsub(" ", "", unique(c(d$name, d$spouse, d$dated, d$canoodled))
+)
+head(all.ppl)
+vecs <- grep("[0-9]", d$rank)
+n.seeds <- length(vecs)
+n.seeds
+name <- gsub(" ", "__", unique(c(d$name, d$spouse, d$dated, d$canoodled)))
+unqid <- paste("name", 1:n)
+rbind(name, unqid)
+nodes = as.list(rbind(name, unqid))
+d <- read.csv("~/Dropbox/Celeb_Hookups/celebs-csv(1).csv", stringsAsFactors=F)
+d <- read.csv("~/Dropbox/Celeb_Hookups/celebs-csv(1).csv", stringsAsFactors=F)
+names(d) <- c("rank", "name", "spouse", "breakup", "dated", "canoodled", "score", "profession", "age")
+name <- gsub(" ", "_", unique(c(d$name, d$spouse, d$dated, d$canoodled)))
+n <- length(name)
+unqid <- paste("name", 1:n, sep="_")
+nodes = as.list(rbind(name, unqid))
+summary(nodes)
+length(nodes)
+nodes = rbind(name, unqid)
+length(nodes)
+nodes = rbind(name, unqid)
+nodes = data.frame(name, unqid)
+length(nodes)
+nrow(nodes)
+nodes = as.list(data.frame(name, unqid))
+length(nodes)
+nodes
+library("rjson")
+nodes = toJSON(data.frame(name, unqid))
+nodes
+nodes = toJSON(c(name, unqid))
+nodes
+nodes = toJSON(rbind(name, unqid))
+nodes
+all.ppl <- gsub(" ", "_", unique(c(d$name, d$spouse, d$dated, d$canoodled))

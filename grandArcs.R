@@ -29,10 +29,10 @@ data$bin[data$quantity > 62] <- 4
 colors <- brewer.pal(4, "YlGnBu")
 
 #add transparency by pasting a number onto the end of the hex code
-colors <- adjustcolor(colors, 0.1)
+colors <- adjustcolor(colors, 0.05)
 
 #plot base map
-#png("map.png",width=16000, height=9000, units="px")
+png("/Users/brian/Dropbox/GitRepository/EcoHack/images/map.png",width=1600, height=900, units="px")
 map("world", col="grey10", fill=TRUE, bg="black", lwd=0.05, lty=1)
 
 #plot connecting lines
@@ -69,4 +69,4 @@ for (j in 1:n) {
 	lines(jitter(inter, 1), col=colors[colindex], lwd=1,   lty=1)
    }
 }
-#dev.off()
+dev.off()
