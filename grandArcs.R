@@ -32,7 +32,7 @@ colors <- brewer.pal(4, "YlGnBu")
 colors <- adjustcolor(colors, 0.05)
 
 #plot base map
-png("/Users/brian/Dropbox/GitRepository/EcoHack/images/map.png",width=1600, height=900, units="px")
+png("/Users/brian/Dropbox/public/map.png",width=1600, height=900, units="px")
 map("world", col="grey10", fill=TRUE, bg="black", lwd=0.05, lty=1)
 
 #plot connecting lines
